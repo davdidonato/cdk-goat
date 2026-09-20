@@ -1,5 +1,6 @@
 """Containers CDK construct module."""
 import aws_cdk as cdk
+from aws_cdk import aws_certificatemanager as acm
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_ecr as ecr
 from aws_cdk import aws_ecr_assets as ecr_assets
@@ -32,6 +33,42 @@ class ContainersConstruct(Construct):
     ):
         """Construct initialization."""
         super().__init__(scope, id)
+
+        # Configure HTTPS with TLS certificate
+        # To deploy this stack, you must provide a valid ACM certificate ARN via context:
+        # cdk deploy -c certificateArn=arn:aws:acm:region:account:certificate/id
+        #
+        # To create a certificate:
+        # 1. Request a certificate in ACM for your domain
+        # 2. Complete domain validation (DNS or email)
+        # 3. Use the certificate ARN when deploying
+        #
+        # Alternatively, provide a domain name and ensure DNS is configured:
+        # cdk deploy -c domainName=yourdomain.com
+        certificate_arn = self.node.try_get_context("certificateArn")
+        
+        if certificate_arn:
+            certificate = acm.Certificate.from_certificate_arn(
+                self,
+                "ImportedCertificate",
+                certificate_arn=certificate_arn,
+            )
+        else:
+            # Create a certificate for the specified domain
+            # Requires DNS to be configured for validation
+            domain_name = self.node.try_get_context("domainName")
+            if not domain_name:
+                raise ValueError(
+                    "Either 'certificateArn' or 'domainName' must be provided via CDK context. "
+                    "Example: cdk deploy -c certificateArn=arn:aws:acm:region:account:certificate/id"
+                )
+            certificate = acm.Certificate(
+                self,
+                "LoadBalancerCertificate",
+                domain_name=domain_name,
+                validation=acm.CertificateValidation.from_dns(),
+            )
+
 
         db_secret = sm.Secret.from_secret_name_v2(
             self,
@@ -177,8 +214,10 @@ class ContainersConstruct(Construct):
             desired_count=1,
             max_healthy_percent=200,
             min_healthy_percent=50,
-            protocol=lb.ApplicationProtocol.HTTP,
-            listener_port=80,
+            protocol=lb.ApplicationProtocol.HTTPS,
+            listener_port=443,
+            certificate=certificate,
+            redirect_http=True,
             enable_ecs_managed_tags=True,
         )
 
