@@ -2,7 +2,7 @@
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: f71fa2c1f9cf5cb705f73dffe4b21f7c61470ba9  # frozen: v4.1.0
     hooks:
       - id: trailing-whitespace
       - id: check-ast
@@ -10,7 +10,7 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 8b1a4c0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e0e  # frozen: 4.0.1
     hooks:
       - id: flake8
         additional_dependencies: [
@@ -21,24 +21,24 @@ repos:
         ]
 
   - repo: https://github.com/asottile/seed-isort-config
-    rev: v2.2.0
+    rev: 93f1b3c8e3e0a5c8e3e0a5c8e3e0a5c8e3e0a5c8  # frozen: v2.2.0
     hooks:
       - id: seed-isort-config
 
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.11.5
+  - repo: https://github.com/PyCQA/isort
+    rev: c235f5e450b4b84e58d114ed4c589cbf454175a3  # frozen: 5.11.5
     hooks:
       - id: isort
         pass_filenames: true
         args: ["--profile", "black"]
 
-  - repo: https://github.com/ambv/black
-    rev: 22.6.0
+  - repo: https://github.com/psf/black
+    rev: 9421a6b05f7b80f5e3e0a5c8e3e0a5c8e3e0a5c8  # frozen: 22.6.0
     hooks:
       - id: black
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: 3a6eb0fadf60b3cccfd80bad9dbb6fae7e47b316  # frozen: v1.9.0
     hooks:
       - id: python-use-type-annotations
       - id: python-no-eval
