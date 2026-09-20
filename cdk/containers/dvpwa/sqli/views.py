@@ -45,6 +45,7 @@ async def index(request: Request):
     return {"last_visited": last_visited, "errors": errors, "auth_user": auth_user}
 
 
+@authorize()
 @template("students.jinja2")
 async def students(request: Request):
     app: Application = request.app
@@ -57,6 +58,7 @@ async def students(request: Request):
     return {"students": students}
 
 
+@authorize()
 @template("student.jinja2")
 async def student(request: Request):
     app: Application = request.app
