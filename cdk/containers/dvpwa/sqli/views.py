@@ -46,6 +46,7 @@ async def index(request: Request):
 
 
 @template("students.jinja2")
+@authorize()
 async def students(request: Request):
     app: Application = request.app
     if request.method == "POST":
