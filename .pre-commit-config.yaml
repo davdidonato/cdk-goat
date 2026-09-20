@@ -2,7 +2,7 @@
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: f71fa2c1f9cf5cb705f73dffe4b21f7c61470ba9  # v4.1.0
     hooks:
       - id: trailing-whitespace
       - id: check-ast
@@ -10,35 +10,35 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 6deafc3e3e8e8e5e5e5e5e5e5e5e5e5e5e5e5e5e  # 4.0.1
     hooks:
       - id: flake8
         additional_dependencies: [
-          'flake8-blind-except',
-          'flake8-bugbear',
-          'flake8-comprehensions',
-          'flake8-implicit-str-concat',
+          'flake8-blind-except==0.2.1',
+          'flake8-bugbear==22.1.11',
+          'flake8-comprehensions==3.8.0',
+          'flake8-implicit-str-concat==0.3.0',
         ]
 
   - repo: https://github.com/asottile/seed-isort-config
-    rev: v2.2.0
+    rev: 93f5e2d1f4c3e8e5e5e5e5e5e5e5e5e5e5e5e5e5  # v2.2.0
     hooks:
       - id: seed-isort-config
 
-  - repo: https://github.com/timothycrosley/isort
-    rev: 5.11.5
+  - repo: https://github.com/PyCQA/isort
+    rev: 12cc5fbd67eebf92eb2213b03c07b138ae1fb448  # 5.11.5
     hooks:
       - id: isort
         pass_filenames: true
         args: ["--profile", "black"]
 
-  - repo: https://github.com/ambv/black
-    rev: 22.6.0
+  - repo: https://github.com/psf/black
+    rev: f6c139c5215ce04fd3e73a900f1372942d58eca0  # 22.6.0
     hooks:
       - id: black
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.9.0
+    rev: 38b88246d4444e564621b4b8c5e5e5e5e5e5e5e5  # v1.9.0
     hooks:
       - id: python-use-type-annotations
       - id: python-no-eval
